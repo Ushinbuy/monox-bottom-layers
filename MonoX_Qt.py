@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import (QWidget, QPushButton, QLineEdit,
     QInputDialog, QApplication, QFileDialog, QMessageBox, QHBoxLayout, 
     QLabel)
 
-class Example(QWidget):
+class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -99,5 +99,5 @@ class Example(QWidget):
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
-    ex = Example()
+    ex = MainWindow()
     sys.exit(app.exec_())
