@@ -1,9 +1,12 @@
 from pathlib import Path
 import struct
 
-startAddresForChange = 0x54
-stopAddresForChange = 0x58
-zeroBottomLayers = b'\x00\x00\x00\x00'      # equal to 0.0 in float format
+startAddresBottomLayersCount    = 0x54
+stopAddresBottomLayersCount     = 0x58
+startAddresPerLayerOverride     = 0x80
+stopAddresPerLayerOverride      = 0x84
+zeroBottomLayers =      b'\x00\x00\x00\x00'      # equal to 0.0 in float format
+setPerLayerOverride =   b'\x01\x00\x00\x00'
 
 # Just for tests
 filenameOpen = '1_Small_Circle.pwmx'
@@ -46,8 +49,9 @@ class FileOperation:
         if(len(changeBytes) != 4):
             raise ValueError
         else:
-            self.__fileBuffer = self.__fileBuffer[:startAddresForChange] + changeBytes + \
-                self.__fileBuffer[stopAddresForChange:]
+            self.__fileBuffer = self.__fileBuffer[:startAddresBottomLayersCount ] + changeBytes + \
+                self.__fileBuffer[stopAddresBottomLayersCount :startAddresPerLayerOverride] +\
+                setPerLayerOverride + self.__fileBuffer[stopAddresPerLayerOverride:]
 
     def writeBufferToNewFile(self):
         self.checkPropertyIsEmpty()
@@ -60,7 +64,7 @@ class FileOperation:
 
     def findNumOfBottomLayers(self):
         self.checkPropertyIsEmpty()
-        binaryArray = self.__fileBuffer[startAddresForChange:stopAddresForChange]
+        binaryArray = self.__fileBuffer[startAddresBottomLayersCount :stopAddresBottomLayersCount ]
         [tempFloat] = struct.unpack('f', binaryArray)
         return tempFloat
 

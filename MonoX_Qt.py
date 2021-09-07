@@ -28,10 +28,6 @@ class MainWindow(QWidget):
         self.btnInfo.move(60, 300)
         self.btnInfo.clicked.connect(self.infoBox)
 
-#        self.le = QLineEdit(self)
-#        self.le.move(100, 22)
-#        self.le.setMinimumWidth(300)
-
         lbl = QLabel(self)
         pixmap = QPixmap("MonoX_img.png")
 
@@ -60,7 +56,6 @@ class MainWindow(QWidget):
             return
 
         print(fileName)
-#        self.le.setText(str(fileName))
         try:
             doFile = FileOperation(fileName)
             newFilename = doFile.automaticWork()
