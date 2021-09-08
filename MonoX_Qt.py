@@ -3,13 +3,9 @@
 # vim:fileencoding=utf-8
 
 from MonoX_FileOperation import FileOperation
-from pathlib import Path
 import sys
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import (QWidget, QPushButton, QLineEdit,
-    QInputDialog, QApplication, QFileDialog, QMessageBox, QHBoxLayout, 
-    QLabel)
+from PyQt5.QtWidgets import (QWidget, QPushButton, QApplication, QFileDialog, QMessageBox, QLabel)
 
 class MainWindow(QWidget):
 
@@ -38,15 +34,6 @@ class MainWindow(QWidget):
         self.setWindowTitle('Fix Bottom Layers on MonoX')
 
         self.show()
-
-    def showDialog(self):
-
-        text, ok = QInputDialog.getText(self, 'Input Dialog', 'Здарова ебать!:')
-
-        if ok:
-            self.le.setText(str(text))
-
-        self.infoBox()
     
     def openFile(self):
         fileDialog = QFileDialog()
@@ -55,7 +42,6 @@ class MainWindow(QWidget):
         if not fileName:
             return
 
-        print(fileName)
         try:
             doFile = FileOperation(fileName)
             newFilename = doFile.automaticWork()
@@ -67,11 +53,11 @@ class MainWindow(QWidget):
             errBox.exec()
             return
         else:
-            errBox = QMessageBox()
-            errBox.setWindowTitle('Complete')
-            errBox.setText('File \'' + newFilename + '\' is writing')
-            errBox.addButton(QMessageBox.Ok)
-            errBox.exec()
+            okBox = QMessageBox()
+            okBox.setWindowTitle('Complete')
+            okBox.setText('File \'' + newFilename + '\' is writing')
+            okBox.addButton(QMessageBox.Ok)
+            okBox.exec()
 
     def infoBox(self):
         infBox = QMessageBox()

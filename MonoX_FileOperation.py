@@ -56,7 +56,6 @@ class FileOperation:
     def writeBufferToNewFile(self):
         self.checkPropertyIsEmpty()
         new_filename = self.__fileName.replace(Path(self.__fileName).name, "FixBL_" + Path(self.__fileName).name)
-        #new_filename = "FixBL_" + self.__fileName
         file_to_write = open(new_filename, 'wb')
         file_to_write.write(self.__fileBuffer)
         file_to_write.close()
@@ -70,10 +69,8 @@ class FileOperation:
 
     def automaticWork(self):
         self.openAndReadFile()
-        self.findNumOfBottomLayers()
         self.changeNumBottomLayers()
         return self.writeBufferToNewFile()
-
 
 if __name__ == "__main__":
     try:
